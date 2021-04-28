@@ -1,31 +1,53 @@
 package com.example.multiimages;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class ImageAdapter extends BaseAdapter {
 
     private Context mcontext;
-    public  int[] imagearray={
+   //public  int[] imagearray;
+
+
+    public int[] imagearray={
 //            R.drawable.image1,R.drawable.images2,R.drawable.image3,
 //            R.drawable.image3,R.drawable.images2,R.drawable.image1,
 //            R.drawable.image1,R.drawable.images2,R.drawable.image3,
 //            R.drawable.image3,R.drawable.images2,R.drawable.image1,
 //            R.drawable.image1,R.drawable.images2,R.drawable.image3,
 
-    };
+
+
+   };
+
+
+
+
 
     //Right c|ick and generate constructor
     //imp|ement methods then auto generate
 
     //Constructor ...Rigth c|ick and generate constructor
     public ImageAdapter(Context mcontext) {
+
         this.mcontext = mcontext;
     }
+
+
+
 
     @Override
     public int getCount() {

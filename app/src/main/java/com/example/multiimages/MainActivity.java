@@ -1,35 +1,27 @@
 package com.example.multiimages;
 
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.widget.ViewSwitcher;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     GridView gridView;
 
     public ArrayList<Uri> mArrayUri;
+    Adapter innerAdapter;
 
 
     @Override
@@ -107,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                     int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
                     imageEncoded  = cursor.getString(columnIndex);
                     cursor.close();
-                    imageView.setImageURI(mImageUri);
+                    gridView.setAdapter(new ImageAdapter(this));
 
                 } else {
                     if (data.getClipData() != null) {
@@ -131,18 +124,8 @@ public class MainActivity extends AppCompatActivity {
                         }
                         Log.v("LOG_TAG", "Selected Images" + mArrayUri.size());
 
-                        Intent intent = new Intent(this,ImageAdapter.class);
-                        intent.putExtra("array",mArrayUri);
-                        startActivity(intent);
-
-                        SharedPreferences.Editor editor = getSharedPreferences("array", MODE_PRIVATE).edit();
-                        editor.putString("mArray", String.valueOf(mArrayUri));
-                        editor.apply();
-
-
-
-
                         gridView.setAdapter(new ImageAdapter(this));
+
 
                     }
                 }
@@ -159,4 +142,4 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-   }
+}
